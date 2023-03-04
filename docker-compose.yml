@@ -15,7 +15,6 @@ services:
 
   carpooling.api:
     container_name: carpooling-api
-    image: ${DOCKER_REGISTRY-}carpoolingapi
     build:
       context: .
       dockerfile: src/CarPooling.API/Dockerfile

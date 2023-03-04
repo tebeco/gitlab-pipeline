@@ -1,0 +1,5 @@
+version: '3.4'
+
+services:
+  carpooling.api:
+    image: ${CI_REGISTRY}/carpoolingapi:${TAG}
