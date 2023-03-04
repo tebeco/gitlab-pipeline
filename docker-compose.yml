@@ -1,0 +1,34 @@
+version: '3.4'
+
+services:
+  carpoolingdb:
+    container_name: sqlserver
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    ports:
+      - 1433:1433
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=?Cabifycarchallange2023
+      - MSSQL_PID=Express
+    networks:
+      - carpooling-network
+
+  carpooling.api:
+    container_name: carpooling-api
+    image: ${DOCKER_REGISTRY-}carpoolingapi
+    build:
+      context: .
+      dockerfile: CarPooling.API/Dockerfile
+    ports:
+      - 9001:9001
+    depends_on:
+      - carpoolingdb
+    environment:
+      - DB_HOST=carpoolingdb
+      - DB_NAME=CarPoolingDB
+      - DB_SA_PASSWORD=?Cabifycarchallange2023
+    networks:
+      - carpooling-network
+
+networks:
+  carpooling-network:
